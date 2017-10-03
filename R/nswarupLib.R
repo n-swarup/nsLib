@@ -22,26 +22,26 @@ linear.regression <- function(xVector, yVector, numCols){
 
 
 
-#' Linear Regression2
+#' Linear Regression Multi
 #'
-#' Finds betas version 2
-#' @param xVector Vector with independent variable
+#' Finds betas (with more than one Beta)
+#' @param xMatrix Vector with independent variables
 #' @param yVector Vector with dependent variable
 #' @param numCols The number of colums you want. Standard is one column of 1's and another that is  xVector
 #' @return A vector of betas, where the first cell is your y-int and the second cell represents your beta - "the slope"
 #' @export
 
-linear.regression2 <- function(xVector, yVector, numCols){
-
-  x <- matrix(0, nrow= NROW(xVector),  ncol= numCols)
+linear.regression.multi <- function(xMatrix, yVector, numCols){
+  
+  x <- matrix(0, nrow= NROW(xMatrix),  ncol= numCols)
   x[,1] <- 1
   for(i in 1:(numCols-1)){
-
-  x[,i+1] <- xVector[i]
-
+    print(colnames(x[,i+1]))
+    x[,i+1] <- xMatrix[,i]
+    print(x)
   }
   y <- (t(t(yVector)))
-
+  
   betas = solve(t(x) %*% x) %*% t(x) %*% y # (X^T * X)^(-1) * X^T * Y # X^T is X transpose and ^(-1) is the inverse
   return(betas) # first cell is the constant (y - intercept), second is slope
 }
